@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getData} from "../../reduxStore/thunkCreators";
 import {addModifiedData, addRenderededData} from "../../reduxStore/actionCreators";
 import {useState} from "react";
+import MyChart from "./MyChart/MyChart";
 
 const Main = () => {
 
@@ -60,6 +61,13 @@ const Main = () => {
             <Header/>
             <Chart data={data} mData={mData} rData={rData} />
             <Description/>
+            <hr/>
+            <div style={{display:"flex"}}>
+                <div style={{width:"20%"}}></div>
+                <div style={{width:"60%"}}><MyChart/></div>
+
+            </div>
+
         </div>
     );
 }
