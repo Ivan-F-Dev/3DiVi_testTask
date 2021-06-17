@@ -7,6 +7,6 @@ const instance = axios.create({
 export const API = {
     getData() {
         return instance.get()
-            .then(response => response.data.data)
+            .then(response => response.data)
     },
 }
