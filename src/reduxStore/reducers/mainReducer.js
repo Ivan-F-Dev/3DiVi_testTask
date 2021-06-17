@@ -1,10 +1,12 @@
-//INITIAL STATE FOR REDUCER
-import {ADD_DATA, ADD_MODIFIED_DATA} from "../actionTypes";
-import {forwardRef} from "react";
+import {ADD_DATA, ADD_MODIFIED_DATA, ADD_RENDERED_DATA} from "../actionTypes";
+import {monthCalc, monthCalcForOneDevice} from "../../utils/calc";
 
+//INITIAL STATE FOR REDUCER
 const initialState = {
     requestData: null,
-    modifiedData: {
+    modifiedData: null,
+    renderedData: null
+    /*modifiedData: {
         begin: null,
         end: null,
         devicesArr: [
@@ -24,8 +26,8 @@ const initialState = {
                 ]
             },
         ]
-    },
-    renderData: {
+    },*/
+    /*renderData: {
         maxViews: null,
         devices: [
             {
@@ -61,7 +63,7 @@ const initialState = {
             }
         ]
 
-    }
+    }*/
 }
 //REDUCER
 export let mainReducer = (state = initialState, action) => {
@@ -79,6 +81,7 @@ export let mainReducer = (state = initialState, action) => {
                 modifiedData: {
                     begin: state.requestData.begin,
                     end: state.requestData.end,
+                    availableDevicesId: state.requestData.data.o.map(devicesEl => devicesEl.n),
                     devicesArr: state.requestData.data.o.map(devicesEl => {
                         return {
                             deviceId: devicesEl.n,
@@ -95,14 +98,58 @@ export let mainReducer = (state = initialState, action) => {
                                     })
                                 }
                             })
-                            /*datesArr: state.requestData.data.o[0].o.map(datesEl => {
-                                return {
-                                    date: datesEl.n
-                                }
-                            })*/
-
                         }
                     })
+                }
+            }
+        case ADD_RENDERED_DATA:
+            const variant = action.payload
+            if (variant === "default") {
+                return {
+                    ...state, renderedData: {
+                        /*marchCalc: () => {
+                            let adultViews = 0
+                            let kidViews = 0
+                            let oldViews = 0
+                            let undefinedViews = 0
+                            let youngViews = 0
+                            for (let i = 0; i < state.modifiedData.availableDevicesId.length; i++) {
+                                if (state.modifiedData.devicesArr[i].datesArr[0].date === "03") {
+                                    adultViews = adultViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[0].views
+                                    kidViews = kidViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[1].views
+                                    oldViews = oldViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[2].views
+                                    undefinedViews = undefinedViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[3].views
+                                    youngViews = youngViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[4].views
+                                }
+                            }
+                            return {
+                                adultViews:  adultViews,
+                                kidViews:  kidViews,
+                                oldViews:  oldViews,
+                                undefinedViews:  undefinedViews,
+                                youngViews:  youngViews
+                            }
+                        },*/
+                        march: monthCalc(state, "03"),
+                        april: monthCalc(state, "04"),
+                        may: monthCalc(state, "05"),
+                        june: monthCalc(state, "06"),
+                        july: monthCalc(state, "07"),
+                        august: monthCalc(state, "08"),
+                        september: monthCalc(state, "09"),
+                    }
+                }
+            } else {
+                return {
+                    ...state, renderedData: {
+                        march: monthCalcForOneDevice(state, "03", variant),
+                        april: monthCalcForOneDevice(state, "04", variant),
+                        may: monthCalcForOneDevice(state, "05", variant),
+                        june: monthCalcForOneDevice(state, "06", variant),
+                        july: monthCalcForOneDevice(state, "07", variant),
+                        august: monthCalcForOneDevice(state, "08", variant),
+                        september: monthCalcForOneDevice(state, "09", variant),
+                    }
                 }
             }
         default :
