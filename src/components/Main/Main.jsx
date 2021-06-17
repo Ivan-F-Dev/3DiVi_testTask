@@ -62,11 +62,13 @@ const Main = () => {
             <Chart data={data} mData={mData} rData={rData} />
             <Description/>
             <hr/>
-            <div style={{display:"flex"}}>
-                <div style={{width:"20%"}}></div>
-                <div style={{width:"60%"}}><MyChart/></div>
+            {
+                rData && <div style={{display:"flex"}}>
+                    <div style={{width:"20%"}}></div>
+                    <div style={{width:"60%"}}><MyChart rData={rData}/></div>
+                </div>
+            }
 
-            </div>
 
         </div>
     );
