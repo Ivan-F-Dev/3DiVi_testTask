@@ -1,73 +1,25 @@
-import {ADD_DATA, ADD_MODIFIED_DATA, ADD_RENDERED_DATA} from "../actionTypes";
+import {ADD_DATA, ADD_MODIFIED_DATA, ADD_RENDERED_CUSTOM_DATA, ADD_RENDERED_DATA, SET_LOAD_DATA} from "../actionTypes";
 import {monthCalc, monthCalcForOneDevice} from "../../utils/calc";
+import {customData} from "../../utils/customData";
 
 //INITIAL STATE FOR REDUCER
 const initialState = {
+    loadData: false,
     requestData: null,
     modifiedData: null,
+    customData: customData,
     renderedData: null
-    /*modifiedData: {
-        begin: null,
-        end: null,
-        devicesArr: [
-            {
-                diviceId: null,
-                views: null,
-                dateArr: [
-                    {
-                        date: null,
-                        ageArr: [
-                            {
-                                ageGroup: null,
-                                views: null
-                            }
-                        ]
-                    },
-                ]
-            },
-        ]
-    },*/
-    /*renderData: {
-        maxViews: null,
-        devices: [
-            {
-                device: null,
-                months: [
-                    {
-                        month: 'march',
-                        totalViewsMarch: null,
-                        ageGroups: [
-                            {
-                                group: 'adult',
-                                views: null
-                            },
-                            {
-                                group: 'kid',
-                                views: null
-                            },
-                            {
-                                group: 'old',
-                                views: null
-                            },
-                            {
-                                group: 'undefined',
-                                views: null
-                            },
-                            {
-                                group: 'young',
-                                views: null
-                            },
-                        ]
-                    },
-                ]
-            }
-        ]
 
-    }*/
 }
 //REDUCER
 export let mainReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_LOAD_DATA:
+            const loadData = action.payload
+            return {
+                ...state,
+                loadData: loadData,
+            }
         case ADD_DATA:
             const data = action.payload
             return {
@@ -107,48 +59,52 @@ export let mainReducer = (state = initialState, action) => {
             if (variant === "default") {
                 return {
                     ...state, renderedData: {
-                        /*marchCalc: () => {
-                            let adultViews = 0
-                            let kidViews = 0
-                            let oldViews = 0
-                            let undefinedViews = 0
-                            let youngViews = 0
-                            for (let i = 0; i < state.modifiedData.availableDevicesId.length; i++) {
-                                if (state.modifiedData.devicesArr[i].datesArr[0].date === "03") {
-                                    adultViews = adultViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[0].views
-                                    kidViews = kidViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[1].views
-                                    oldViews = oldViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[2].views
-                                    undefinedViews = undefinedViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[3].views
-                                    youngViews = youngViews + state.modifiedData.devicesArr[i].datesArr[0].agesArr[4].views
-                                }
-                            }
-                            return {
-                                adultViews:  adultViews,
-                                kidViews:  kidViews,
-                                oldViews:  oldViews,
-                                undefinedViews:  undefinedViews,
-                                youngViews:  youngViews
-                            }
-                        },*/
-                        march: monthCalc(state, "03"),
-                        april: monthCalc(state, "04"),
-                        may: monthCalc(state, "05"),
-                        june: monthCalc(state, "06"),
-                        july: monthCalc(state, "07"),
-                        august: monthCalc(state, "08"),
-                        september: monthCalc(state, "09"),
+                        march: monthCalc(state.modifiedData, "03"),
+                        april: monthCalc(state.modifiedData, "04"),
+                        may: monthCalc(state.modifiedData, "05"),
+                        june: monthCalc(state.modifiedData, "06"),
+                        july: monthCalc(state.modifiedData, "07"),
+                        august: monthCalc(state.modifiedData, "08"),
+                        september: monthCalc(state.modifiedData, "09"),
                     }
                 }
             } else {
                 return {
                     ...state, renderedData: {
-                        march: monthCalcForOneDevice(state, "03", variant),
-                        april: monthCalcForOneDevice(state, "04", variant),
-                        may: monthCalcForOneDevice(state, "05", variant),
-                        june: monthCalcForOneDevice(state, "06", variant),
-                        july: monthCalcForOneDevice(state, "07", variant),
-                        august: monthCalcForOneDevice(state, "08", variant),
-                        september: monthCalcForOneDevice(state, "09", variant),
+                        march: monthCalcForOneDevice(state.modifiedData, "03", variant),
+                        april: monthCalcForOneDevice(state.modifiedData, "04", variant),
+                        may: monthCalcForOneDevice(state.modifiedData, "05", variant),
+                        june: monthCalcForOneDevice(state.modifiedData, "06", variant),
+                        july: monthCalcForOneDevice(state.modifiedData, "07", variant),
+                        august: monthCalcForOneDevice(state.modifiedData, "08", variant),
+                        september: monthCalcForOneDevice(state.modifiedData, "09", variant),
+                    }
+                }
+            }
+        case ADD_RENDERED_CUSTOM_DATA:
+            const variantC = action.payload
+            if (variantC === "default") {
+                return {
+                    ...state, renderedData: {
+                        march: monthCalc(state.customData, "03"),
+                        april: monthCalc(state.customData, "04"),
+                        may: monthCalc(state.customData, "05"),
+                        june: monthCalc(state.customData, "06"),
+                        july: monthCalc(state.customData, "07"),
+                        august: monthCalc(state.customData, "08"),
+                        september: monthCalc(state.customData, "09"),
+                    }
+                }
+            } else {
+                return {
+                    ...state, renderedData: {
+                        march: monthCalcForOneDevice(state.customData, "03", ...variantC),
+                        april: monthCalcForOneDevice(state.customData, "04", ...variantC),
+                        may: monthCalcForOneDevice(state.customData, "05", ...variantC),
+                        june: monthCalcForOneDevice(state.customData, "06", ...variantC),
+                        july: monthCalcForOneDevice(state.customData, "07", ...variantC),
+                        august: monthCalcForOneDevice(state.customData, "08", ...variantC),
+                        september: monthCalcForOneDevice(state.customData, "09", ...variantC),
                     }
                 }
             }
