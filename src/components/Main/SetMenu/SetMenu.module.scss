@@ -1,0 +1,17 @@
+.setMenu {
+  color: crimson;
+  width: 100%;
+
+
+  .checkBoxes {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 40px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+

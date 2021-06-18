@@ -28,6 +28,7 @@ export const monthCalcForOneDevice = (state, mounth, ...deviceId) => {
     let oldViews = 0
     let undefinedViews = 0
     let youngViews = 0
+    console.log(deviceId)
     for (let i = 0; i < state.availableDevicesId.length; i++) {
         if (state.devicesArr[i].datesArr[0].date === mounth && deviceId.includes(state.devicesArr[i].deviceId) ) {
             adultViews = adultViews + state.devicesArr[i].datesArr[0].agesArr[0].views

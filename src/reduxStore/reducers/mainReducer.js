@@ -56,56 +56,28 @@ export let mainReducer = (state = initialState, action) => {
             }
         case ADD_RENDERED_DATA:
             const variant = action.payload
-            if (variant === "default") {
-                return {
-                    ...state, renderedData: {
-                        march: monthCalc(state.modifiedData, "03"),
-                        april: monthCalc(state.modifiedData, "04"),
-                        may: monthCalc(state.modifiedData, "05"),
-                        june: monthCalc(state.modifiedData, "06"),
-                        july: monthCalc(state.modifiedData, "07"),
-                        august: monthCalc(state.modifiedData, "08"),
-                        september: monthCalc(state.modifiedData, "09"),
-                    }
-                }
-            } else {
-                return {
-                    ...state, renderedData: {
-                        march: monthCalcForOneDevice(state.modifiedData, "03", variant),
-                        april: monthCalcForOneDevice(state.modifiedData, "04", variant),
-                        may: monthCalcForOneDevice(state.modifiedData, "05", variant),
-                        june: monthCalcForOneDevice(state.modifiedData, "06", variant),
-                        july: monthCalcForOneDevice(state.modifiedData, "07", variant),
-                        august: monthCalcForOneDevice(state.modifiedData, "08", variant),
-                        september: monthCalcForOneDevice(state.modifiedData, "09", variant),
-                    }
+            return {
+                ...state, renderedData: {
+                    march: monthCalcForOneDevice(state.modifiedData, "03", ...variant),
+                    april: monthCalcForOneDevice(state.modifiedData, "04", ...variant),
+                    may: monthCalcForOneDevice(state.modifiedData, "05", ...variant),
+                    june: monthCalcForOneDevice(state.modifiedData, "06", ...variant),
+                    july: monthCalcForOneDevice(state.modifiedData, "07", ...variant),
+                    august: monthCalcForOneDevice(state.modifiedData, "08", ...variant),
+                    september: monthCalcForOneDevice(state.modifiedData, "09", ...variant),
                 }
             }
         case ADD_RENDERED_CUSTOM_DATA:
             const variantC = action.payload
-            if (variantC === "default") {
-                return {
-                    ...state, renderedData: {
-                        march: monthCalc(state.customData, "03"),
-                        april: monthCalc(state.customData, "04"),
-                        may: monthCalc(state.customData, "05"),
-                        june: monthCalc(state.customData, "06"),
-                        july: monthCalc(state.customData, "07"),
-                        august: monthCalc(state.customData, "08"),
-                        september: monthCalc(state.customData, "09"),
-                    }
-                }
-            } else {
-                return {
-                    ...state, renderedData: {
-                        march: monthCalcForOneDevice(state.customData, "03", ...variantC),
-                        april: monthCalcForOneDevice(state.customData, "04", ...variantC),
-                        may: monthCalcForOneDevice(state.customData, "05", ...variantC),
-                        june: monthCalcForOneDevice(state.customData, "06", ...variantC),
-                        july: monthCalcForOneDevice(state.customData, "07", ...variantC),
-                        august: monthCalcForOneDevice(state.customData, "08", ...variantC),
-                        september: monthCalcForOneDevice(state.customData, "09", ...variantC),
-                    }
+            return {
+                ...state, renderedData: {
+                    march: monthCalcForOneDevice(state.customData, "03", ...variantC),
+                    april: monthCalcForOneDevice(state.customData, "04", ...variantC),
+                    may: monthCalcForOneDevice(state.customData, "05", ...variantC),
+                    june: monthCalcForOneDevice(state.customData, "06", ...variantC),
+                    july: monthCalcForOneDevice(state.customData, "07", ...variantC),
+                    august: monthCalcForOneDevice(state.customData, "08", ...variantC),
+                    september: monthCalcForOneDevice(state.customData, "09", ...variantC),
                 }
             }
         default :

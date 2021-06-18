@@ -81,21 +81,21 @@ export const customData = {
     }, {
         deviceId: "7063", totalViews: 2,
         datesArr: [{
-            date: "09",
+            date: "08",
             views: 1,
             agesArr: [{age: "adult", views: 1}, {age: "kid", views: 1}, {
                 age: "old",
-                views: 1
+                views: 10
             }, {age: "undefined", views: 3}, {age: "young", views: 2}]
         }, {
-            date: "09",
+            date: "08",
             views: 0,
             agesArr: [{age: "adult", views: 3}, {age: "kid", views: 7}, {
                 age: "old",
                 views: 1
             }, {age: "undefined", views: 4}, {age: "young", views: 6}]
         }, {
-            date: "09",
+            date: "08",
             views: 1,
             agesArr: [{age: "adult", views: 8}, {age: "kid", views: 1}, {
                 age: "old",

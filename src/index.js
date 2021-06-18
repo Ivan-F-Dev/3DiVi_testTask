@@ -6,12 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./reduxStore/store";
+import {theme} from "./utils/muiTheme";
+import {MuiThemeProvider} from "@material-ui/core";
 
 ReactDOM.render(
   <React.StrictMode>
       <HashRouter>
           <Provider store={store}>
-              <App />
+              <MuiThemeProvider theme={theme}>
+                  <App />
+              </MuiThemeProvider>
           </Provider>
       </HashRouter>
   </React.StrictMode>,
