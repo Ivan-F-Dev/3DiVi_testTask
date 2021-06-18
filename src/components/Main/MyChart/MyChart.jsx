@@ -73,10 +73,6 @@ const MyChart = React.memo(({rData}) => {
                     boxWidth: 10,
                     usePointStyle: true
                 },
-                onClick: (e, legendItem) => {
-                    let i = legendItem.datasetIndex;
-                    let ci = chRef.current.chartInstance;
-                }
             }
         };
 

@@ -11,13 +11,12 @@ const Main = () => {
 
     const dispatch = useDispatch()
     const loadData = useSelector(state => state.main.loadData)
-    const data = useSelector(state => state.main.requestData)
     const mData = useSelector(state => state.main.modifiedData)
     const rData = useSelector(state => state.main.renderedData)
 
     useEffect(() => {
         dispatch(initializeApp())
-    }, [])
+    }, [dispatch])
 
     return (
         <div>

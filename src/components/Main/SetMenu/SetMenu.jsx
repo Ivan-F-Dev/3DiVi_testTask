@@ -1,16 +1,18 @@
 import s from './SetMenu.module.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import {addRenderededCustomData, addRenderededData} from "../../../reduxStore/actionCreators";
-import {useDispatch} from "react-redux";
+import {addRenderededCustomData, addRenderededData, setMode} from "../../../reduxStore/actionCreators";
+import {useDispatch, useSelector} from "react-redux";
 import {getPickedDevices} from "../../../utils/getPickedDevices";
 
 const SetMenu = ({mData}) => {
 
     const dispatch = useDispatch()
+
+    const [mainVariant, setMainVariant] = useState(true)
     const [state, setState] = useState({
             checkedA: true,
             checkedB: true,
@@ -23,51 +25,22 @@ const SetMenu = ({mData}) => {
         }
     );
 
-    // const getPickedDevices = (state, mData) => {
-    //     let pickedDevices = new Array(mData.availableDevicesId)
-    //     for (let i = 0; i < pickedDevices.length; i++) {
-    //         switch (i) {
-    //             case 0:
-    //                 state.checkedA ? pickedDevices[0] = mData.availableDevicesId[0] : pickedDevices[0] = " "
-    //
-    //             case 1:
-    //                 state.checkedB ? pickedDevices[1] = mData.availableDevicesId[1] : pickedDevices[1] = " "
-    //
-    //             case 2:
-    //                 state.checkedC ? pickedDevices[2] = mData.availableDevicesId[2] : pickedDevices[2] = " "
-    //
-    //             case 3:
-    //                 state.checkedD ? pickedDevices[3] = mData.availableDevicesId[3] : pickedDevices[3] = " "
-    //
-    //             case 4:
-    //                 state.checkedE ? pickedDevices[4] = mData.availableDevicesId[4] : pickedDevices[4] = " "
-    //
-    //             case 5:
-    //                 state.checkedF ? pickedDevices[5] = mData.availableDevicesId[5] : pickedDevices[5] = " "
-    //
-    //             case 6:
-    //                 state.checkedG ? pickedDevices[6] = mData.availableDevicesId[6] : pickedDevices[6] = " "
-    //
-    //             case 7:
-    //                 state.checkedG ? pickedDevices[7] = mData.availableDevicesId[7] : pickedDevices[7] = " "
-    //         }
-    //     }
-    //     return pickedDevices
-    // }
-
     const pickedDevices = getPickedDevices(state, mData)
-
-    const handleChange = (event) => {
-        setState({...state, [event.target.name]: event.target.checked});
-    };
 
     const onClickMainSet = () => {
         dispatch(addRenderededData(pickedDevices))
+        setMainVariant(true)
     }
 
     const onClickCustomSet = () => {
         dispatch(addRenderededCustomData(pickedDevices))
+        setMainVariant(false)
     }
+
+    const handleChange = (event) => {
+        setState({...state, [event.target.name]: event.target.checked});
+        mainVariant ? dispatch(addRenderededData(pickedDevices)) : dispatch(addRenderededCustomData(pickedDevices))
+    };
 
     return (
         <div className={s.setMenu}>
@@ -108,8 +81,8 @@ const SetMenu = ({mData}) => {
                 </FormGroup>
             </div>
             <div className={s.buttons}>
-                <Button onClick={() => onClickMainSet()} variant="contained" color="primary">Main Set</Button>
-                <Button onClick={() => onClickCustomSet()} variant="contained" color="primary">Custom Set</Button>
+                <Button onClick={() => onClickMainSet()} variant="contained" color="primary">Render Main Data</Button>
+                <Button onClick={() => onClickCustomSet()} variant="contained" color="primary">Render Custom Data</Button>
             </div>
         </div>
     );
