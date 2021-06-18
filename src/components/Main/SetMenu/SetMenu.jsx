@@ -4,8 +4,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import {addRenderededCustomData, addRenderededData, setMode} from "../../../reduxStore/actionCreators";
-import {useDispatch, useSelector} from "react-redux";
+import {addRenderededCustomData, addRenderededData} from "../../../reduxStore/actionCreators";
+import {useDispatch} from "react-redux";
 import {getPickedDevices} from "../../../utils/getPickedDevices";
 
 const SetMenu = ({mData}) => {
@@ -22,8 +22,13 @@ const SetMenu = ({mData}) => {
             checkedF: true,
             checkedG: true,
             checkedH: true,
+            checkedSwitch: true
         }
     );
+
+    useEffect(() => {
+        mainVariant ? dispatch(addRenderededData(pickedDevices)) : dispatch(addRenderededCustomData(pickedDevices))
+    }, [dispatch, state])
 
     const pickedDevices = getPickedDevices(state, mData)
 
@@ -39,7 +44,6 @@ const SetMenu = ({mData}) => {
 
     const handleChange = (event) => {
         setState({...state, [event.target.name]: event.target.checked});
-        mainVariant ? dispatch(addRenderededData(pickedDevices)) : dispatch(addRenderededCustomData(pickedDevices))
     };
 
     return (
@@ -81,8 +85,8 @@ const SetMenu = ({mData}) => {
                 </FormGroup>
             </div>
             <div className={s.buttons}>
-                <Button onClick={() => onClickMainSet()} variant="contained" color="primary">Render Main Data</Button>
-                <Button onClick={() => onClickCustomSet()} variant="contained" color="primary">Render Custom Data</Button>
+                <Button onClick={() => onClickMainSet()} variant="contained" color="primary">Include Main Data</Button>
+                <Button onClick={() => onClickCustomSet()} variant="contained" color="primary">Include Custom Data</Button>
             </div>
         </div>
     );

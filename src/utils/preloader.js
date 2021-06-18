@@ -1,5 +1,5 @@
 import React from 'react'
-import preloader from './Preloader.svg'
+import preloader from './preloader.svg'
 
 const Preloader = () => {
     return (
