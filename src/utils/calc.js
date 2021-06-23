@@ -21,3 +21,22 @@ export const monthCalcForOneDevice = (state, mounth, ...deviceId) => {
         youngViews:  youngViews
     }
 }
+
+export const monthDiff = (d1, d2) => {
+    var months;
+    // months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    // months -= d1.getMonth() + 1;
+    // months += d2.getMonth();
+    // return months <= 0 ? 0 : months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months + 1;
+}
+
+export const createRenderedData = (monCount, monBegin) => {
+    const a = {}
+    for (let i = 0; i < monCount; i++) {
+
+    }
+}

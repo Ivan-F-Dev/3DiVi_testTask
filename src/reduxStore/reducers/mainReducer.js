@@ -6,7 +6,7 @@ import {
     SET_LOAD_DATA,
     SET_MODE
 } from "../actionTypes";
-import {monthCalcForOneDevice} from "../../utils/calc";
+import {monthCalcForOneDevice, monthDiff} from "../../utils/calc";
 import {customData} from "../../utils/customData";
 
 //INITIAL STATE FOR REDUCER
@@ -39,6 +39,7 @@ export let mainReducer = (state = initialState, action) => {
                 modifiedData: {
                     begin: state.requestData.begin,
                     end: state.requestData.end,
+                    monthsCount: monthDiff(new Date(state.requestData.begin), new Date(state.requestData.end)),
                     availableDevicesId: state.requestData.data.o.map(devicesEl => devicesEl.n),
                     devicesArr: state.requestData.data.o.map(devicesEl => {
                         return {
@@ -72,6 +73,11 @@ export let mainReducer = (state = initialState, action) => {
                     august: monthCalcForOneDevice(state.modifiedData, 8, ...variant),
                     september: monthCalcForOneDevice(state.modifiedData, 9, ...variant),
                 }
+            }
+        case "ADD_RENDERED_DATA_t":
+            const variantt = action.payload
+            return {
+                ...state, renderedData: 1
             }
         case ADD_RENDERED_CUSTOM_DATA:
             const variantC = action.payload
