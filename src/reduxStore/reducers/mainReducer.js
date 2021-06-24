@@ -1,20 +1,16 @@
 import {
     ADD_DATA,
     ADD_MODIFIED_DATA,
-    ADD_RENDERED_CUSTOM_DATA,
     ADD_RENDERED_DATA,
     SET_LOAD_DATA,
-    SET_MODE
 } from "../actionTypes";
-import {createRenderedData, monthCalcForOneDevice, monthDiff} from "../../utils/calc";
-import {customData} from "../../utils/customData";
+import {createRenderedData, monthDiff} from "../../utils/calc";
 
 //INITIAL STATE FOR REDUCER
 const initialState = {
     loadData: false,
     requestData: null,
     modifiedData: null,
-    customData: customData,
     renderedData: null
 
 }
@@ -65,19 +61,6 @@ export let mainReducer = (state = initialState, action) => {
             const variantt = action.payload
             return {
                 ...state, renderedData: createRenderedData(state.modifiedData.monthsCount,new Date(state.modifiedData.begin).getMonth() + 1, state.modifiedData, variantt)
-            }
-        case ADD_RENDERED_CUSTOM_DATA:
-            const variantC = action.payload
-            return {
-                ...state, renderedData: {
-                    March: monthCalcForOneDevice(state.customData, 3, ...variantC),
-                    April: monthCalcForOneDevice(state.customData, 4, ...variantC),
-                    May: monthCalcForOneDevice(state.customData, 5, ...variantC),
-                    June: monthCalcForOneDevice(state.customData, 6, ...variantC),
-                    July: monthCalcForOneDevice(state.customData, 7, ...variantC),
-                    August: monthCalcForOneDevice(state.customData, 8, ...variantC),
-                    September: monthCalcForOneDevice(state.customData, 9, ...variantC),
-                }
             }
         default :
             return state
