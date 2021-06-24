@@ -6,7 +6,7 @@ import {
     SET_LOAD_DATA,
     SET_MODE
 } from "../actionTypes";
-import {monthCalcForOneDevice, monthDiff} from "../../utils/calc";
+import {createRenderedData, monthCalcForOneDevice, monthDiff} from "../../utils/calc";
 import {customData} from "../../utils/customData";
 
 //INITIAL STATE FOR REDUCER
@@ -62,34 +62,21 @@ export let mainReducer = (state = initialState, action) => {
                 }
             }
         case ADD_RENDERED_DATA:
-            const variant = action.payload
-            return {
-                ...state, renderedData: {
-                    march: monthCalcForOneDevice(state.modifiedData, 3, ...variant),
-                    april: monthCalcForOneDevice(state.modifiedData, 4, ...variant),
-                    may: monthCalcForOneDevice(state.modifiedData, 5, ...variant),
-                    june: monthCalcForOneDevice(state.modifiedData, 6, ...variant),
-                    july: monthCalcForOneDevice(state.modifiedData, 7, ...variant),
-                    august: monthCalcForOneDevice(state.modifiedData, 8, ...variant),
-                    september: monthCalcForOneDevice(state.modifiedData, 9, ...variant),
-                }
-            }
-        case "ADD_RENDERED_DATA_t":
             const variantt = action.payload
             return {
-                ...state, renderedData: 1
+                ...state, renderedData: createRenderedData(state.modifiedData.monthsCount,new Date(state.modifiedData.begin).getMonth() + 1, state.modifiedData, variantt)
             }
         case ADD_RENDERED_CUSTOM_DATA:
             const variantC = action.payload
             return {
                 ...state, renderedData: {
-                    march: monthCalcForOneDevice(state.customData, 3, ...variantC),
-                    april: monthCalcForOneDevice(state.customData, 4, ...variantC),
-                    may: monthCalcForOneDevice(state.customData, 5, ...variantC),
-                    june: monthCalcForOneDevice(state.customData, 6, ...variantC),
-                    july: monthCalcForOneDevice(state.customData, 7, ...variantC),
-                    august: monthCalcForOneDevice(state.customData, 8, ...variantC),
-                    september: monthCalcForOneDevice(state.customData, 9, ...variantC),
+                    March: monthCalcForOneDevice(state.customData, 3, ...variantC),
+                    April: monthCalcForOneDevice(state.customData, 4, ...variantC),
+                    May: monthCalcForOneDevice(state.customData, 5, ...variantC),
+                    June: monthCalcForOneDevice(state.customData, 6, ...variantC),
+                    July: monthCalcForOneDevice(state.customData, 7, ...variantC),
+                    August: monthCalcForOneDevice(state.customData, 8, ...variantC),
+                    September: monthCalcForOneDevice(state.customData, 9, ...variantC),
                 }
             }
         default :

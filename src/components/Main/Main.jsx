@@ -24,7 +24,7 @@ const Main = () => {
                 ? <Preloader/>
                 : <div className={s.Main}>
                     <div className={s.headerWrap}><Header/></div>
-                    <div className={s.chartWrap}>{rData && <MyChart rData={rData}/>}</div>
+                    <div className={s.chartWrap}>{rData && <MyChart mData={mData} rData={rData}/>}</div>
                     <div className={s.menuWrap}>{rData && <SetMenu mData={mData}/>}</div>
                 </div>
             }

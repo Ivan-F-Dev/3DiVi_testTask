@@ -1,7 +1,8 @@
 import React, {useRef} from "react";
 import {Bar} from "react-chartjs-2";
+import {getMonthsLabels, getSpendsData} from "../../../utils/calc";
 
-const MyChart = React.memo(({rData}) => {
+const MyChart = React.memo(({mData ,rData}) => {
         const chRef = useRef(null);
 
         const mocked_data = {
@@ -10,23 +11,23 @@ const MyChart = React.memo(({rData}) => {
                 spends: [
                     {
                         label: "Undefined",
-                        data: [rData.march.undefinedViews, rData.april.undefinedViews, rData.may.undefinedViews, rData.june.undefinedViews, rData.july.undefinedViews, rData.august.undefinedViews, rData.september.undefinedViews]
+                        data: getSpendsData("undefinedViews", mData, rData)
                     },
                     {
                         label: "Kids",
-                        data: [rData.march.kidViews, rData.april.kidViews, rData.may.kidViews, rData.june.kidViews, rData.july.kidViews, rData.august.kidViews, rData.september.kidViews]
+                        data: getSpendsData("kidViews", mData, rData)
                     },
                     {
                         label: "Young Adult",
-                        data: [rData.march.youngViews, rData.april.youngViews, rData.may.youngViews, rData.june.youngViews, rData.july.youngViews, rData.august.youngViews, rData.september.youngViews]
+                        data: getSpendsData("youngViews", mData, rData)
                     },
                     {
                         label: "Adult",
-                        data: [rData.march.adultViews, rData.april.adultViews, rData.may.adultViews, rData.june.adultViews, rData.july.adultViews, rData.august.adultViews, rData.september.adultViews]
+                        data: getSpendsData("adultViews", mData, rData)
                     },
                     {
                         label: "Senior",
-                        data: [rData.march.oldViews, rData.april.oldViews, rData.may.oldViews, rData.june.oldViews, rData.july.oldViews, rData.august.oldViews, rData.september.oldViews]
+                        data: getSpendsData("oldViews", mData, rData)
                     }
                 ]
             }
@@ -55,7 +56,8 @@ const MyChart = React.memo(({rData}) => {
         const spnedperchanneldata = newdataset.flat();
 
         const data = {
-            labels: ["March", "April", "May", "June", "July", "August", "September"],
+            labels: getMonthsLabels(mData.monthsCount,new Date(mData.begin).getMonth() + 1),
+            //labels: ["March", "April", "May", "June", "July", "August", "September"],
             datasets: spnedperchanneldata
         };
 

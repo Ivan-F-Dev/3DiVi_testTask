@@ -1,3 +1,6 @@
+const monNamesArr = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
 export const monthCalcForOneDevice = (state, mounth, ...deviceId) => {
     let adultViews = 0
     let kidViews = 0
@@ -22,21 +25,39 @@ export const monthCalcForOneDevice = (state, mounth, ...deviceId) => {
     }
 }
 
+export const createRenderedData = (monCount, monBegin, state, changedDeviceId) => {
+    const renderedData = {}
+    for (let i = 0; i < monCount; i++) {
+        renderedData[`${monNamesArr[monBegin - 1 + i]}`] = monthCalcForOneDevice(state, monBegin + i, ...changedDeviceId)
+    }
+    return renderedData
+}
+
 export const monthDiff = (d1, d2) => {
     var months;
-    // months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    // months -= d1.getMonth() + 1;
-    // months += d2.getMonth();
-    // return months <= 0 ? 0 : months;
     months = (d2.getFullYear() - d1.getFullYear()) * 12;
     months -= d1.getMonth();
     months += d2.getMonth();
     return months + 1;
 }
 
-export const createRenderedData = (monCount, monBegin) => {
-    const a = {}
+export const getMonthsLabels = (monCount, monBegin) => {
+    const monthsLabels = []
     for (let i = 0; i < monCount; i++) {
-
+        monthsLabels.push(monNamesArr[monBegin - 1 + i])
     }
+    return monthsLabels
+}
+
+export const getSpendsData = (ageCat ,mData, rData) => {
+    let beginMonth = new Date(mData.begin).getMonth() + 1
+    let count = mData.monthsCount
+    let spendsData = []
+
+    for (let i = 0; i < count; i++) {
+        let md = rData[monNamesArr[beginMonth - 1 + i]]
+        let amd = md[ageCat]
+        spendsData.push(amd)
+    }
+    return spendsData
 }
