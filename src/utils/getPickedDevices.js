@@ -25,6 +25,7 @@ export const getPickedDevices = (state, mData) => {
 
             case 7:
                 state[i] ? pickedDevices[7] = mData.availableDevicesId[7] : pickedDevices[7] = " "
+
         }
     }
     return pickedDevices

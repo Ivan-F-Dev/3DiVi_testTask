@@ -15,11 +15,11 @@ const SetMenu = ({mData}) => {
         true, true, true, true, true, true, true, true, true, true, true, true]
     );
 
+    const pickedDevices = getPickedDevices(state, mData)
+
     useEffect(() => {
         dispatch(addRenderededData(pickedDevices))
     }, [dispatch, state])
-
-    const pickedDevices = getPickedDevices(state, mData)
 
     const handleChanget = (event) => {
         let newArr = [...state]
@@ -28,7 +28,7 @@ const SetMenu = ({mData}) => {
     };
 
     let checkBoxes = mData.availableDevicesId.map((e, index) =>
-        <FormControlLabel label={e} control={<Checkbox checked={state[index]} onChange={handleChanget} name={index} color="primary"/>}/>)
+        <FormControlLabel key={(index +4) * 13} label={e} control={<Checkbox checked={state[index]} onChange={handleChanget} name={index} color="primary"/>}/>)
 
     return (
         <div className={s.setMenu}>
